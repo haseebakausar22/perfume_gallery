@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfume Gallery</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      font-family: 'Times New Roman', serif;
+    }
+
+    .gallery-overlay {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 20px auto;
+      max-width: 1400px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      font-size: 3rem;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .product-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      color: #666;
+      font-size: 1rem;
+    }
+
+    /* Modal Styles */
+    .modal-content {
+      border-radius: 15px;
+      border: none;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-image:hover {
+      transform: scale(1.05);
+    }
+
+    .main-product-image {
+      width: 100%;
+      height: 550px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-btn btn" onclick="showGallery()" id="backBtn">← Back to Gallery</button>
+  
+  <div class="container-fluid" id="galleryView">
+    <div class="gallery-overlay">
+      <h1>PERFUME GALLERY</h1>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" onclick="showProduct('summer')">
+            <img src="c:\Users\hp\Downloads\summer 1.jpg" alt="Summer Perfume" class="product-image">
+            <div class="product-title">SUMMER</div>
+            <div class="product-price">(6000)</div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" onclick="showProduct('western')">
+            <img src="c:\Users\hp\Downloads\estern.jpg" alt="Western Perfume" class="product-image">
+            <div class="product-title">WESTERN</div>
+            <div class="product-price">(3000)</div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" onclick="showProduct('luxury')">
+            <img src="c:\Users\hp\Downloads\download (12).jpg" alt="Luxury Perfume" class="product-image">
+            <div class="product-title">LUXURY</div>
+            <div class="product-price">(8000)</div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" onclick="showProduct('office')">
+            <img src="c:\Users\hp\Downloads\western 2.jpg" alt="Office Perfume" class="product-image">
+            <div class="product-title">OFFICE</div>
+            <div class="product-price">(1000)</div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" onclick="showProduct('gifting')">
+            <img src="c:\Users\hp\Downloads\gifting.jpg" alt="Gifting Perfume" class="product-image">
+            <div class="product-title">GIFTING</div>
+            <div class="product-price">(7000)</div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" onclick="showProduct('oud')">
+            <img src="c:\Users\hp\Downloads\oud.jpg" alt="Oud Perfume" class="product-image">
+            <div class="product-title">OUD</div>
+            <div class="product-price">(5000)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Detail View -->
+  <div class="container-fluid" id="productView" style="display: none;">
+    <div class="gallery-overlay">
+      <div class="row">
+        <div class="col-md-6">
+          <img id="mainProductImage" src="" alt="Product" class="main-product-image">
+        </div>
+        <div class="col-md-6">
+          <h2 id="productTitle"></h2>
+          <p id="productPrice" class="h4 text-muted"></p>
+          <p id="productDescription">Experience the finest fragrance crafted with premium ingredients. This exquisite perfume offers a unique blend of notes that will leave a lasting impression.</p>
+          
+          <h4 class="mt-4">More Images</h4>
+          <div class="gallery-grid" id="productGallery">
+            <!-- Gallery images will be populated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Screen Image Modal -->
+  <div class="modal fade" id="imageModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Product Image</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" alt="Full Size Image" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Product data structure - Replace these paths with your actual image paths
+    const products = {
+      summer: {
+        title: 'SUMMER',
+        price: '(6000)',
+        mainImage: 'c:/Users/hp/Desktop/gallery/summer 8.jpg',
+        gallery: [
+          'c:/Users/hp/Downloads/summer 3.jpg',
+          'c:/Users/hp/Desktop/gallery/summer 5.webp',
+          'c:/Users/hp/Desktop/gallery/summer 4.webp',
+          'c:/Users/hp/Desktop/gallery/summer 2.jpg',
+          'c:/Users/hp/Desktop/gallery/summer 6.jpg',
+          'c:/Users/hp/Desktop/gallery/summer 7.jpg'
+        ]
+      },
+      western: {
+        title: 'WESTERN',
+        price: '(3000)',
+        mainImage: 'c:/Users/hp/Desktop/gallery/western 2.jpg',
+        gallery: [
+          'c:/Users/hp/Desktop/gallery/western 3.jpg',
+          'c:/Users/hp/Desktop/gallery/western 4.jpg',
+          'c:/Users/hp/Desktop/gallery/western 5.jpg',
+          'c:/Users/hp/Desktop/gallery/western 6.jpg',
+          'c:/Users/hp/Desktop/gallery/western 7.jpg',
+          'c:/Users/hp/Desktop/gallery/western 9.jpg'
+        ]
+      },
+      luxury: {
+        title: 'LUXURY',
+        price: '(8000)',
+        mainImage: 'c:/Users/hp/Desktop/gallery/luxury 1.jpg',
+        gallery: [
+          'c:/Users/hp/Desktop/gallery/luxury 9.jpg',
+          'c:/Users/hp/Desktop/gallery/luxury 4.jpg',
+          'c:/Users/hp/Desktop/gallery/luxury 5.jpg',
+          'c:/Users/hp/Desktop/gallery/luxury 6.jpg',
+          'c:/Users/hp/Desktop/gallery/luxury 7.jpg',
+          'c:/Users/hp/Desktop/gallery/luxury 8.jpg'
+        ]
+      },
+      office: {
+        title: 'OFFICE',
+        price: '(1000)',
+        mainImage: 'c:/Users/hp/Desktop/gallery/office 6.jpg',
+        gallery: [
+          'c:/Users/hp/Desktop/gallery/office 1.jpg',
+          'c:/Users/hp/Desktop/gallery/office 5.jpg',
+          'c:/Users/hp/Desktop/gallery/office 2.jpg',
+          'c:/Users/hp/Desktop/gallery/office 3.jpg',
+          'c:/Users/hp/Desktop/gallery/office 4.jpg',
+          'c:/Users/hp/Desktop/gallery/office 7.jpg'
+        ]
+      },
+      gifting: {
+        title: 'GIFTING',
+        price: '(7000)',
+        mainImage: 'c:/Users/hp/Desktop/gallery/gift 7.jpg',
+        gallery: [
+          'c:/Users/hp/Desktop/gallery/gift 1.jpg',
+          'c:/Users/hp/Desktop/gallery/gift 2.jpg',
+          'c:/Users/hp/Desktop/gallery/gift 3.jpg',
+          'c:/Users/hp/Desktop/gallery/gift 4.jpg',
+          'c:/Users/hp/Desktop/gallery/gift 5.jpg',
+          'c:/Users/hp/Desktop/gallery/gift 6.jpg'
+        ]
+      },
+      oud: {
+        title: 'OUD',
+        price: '(5000)',
+        mainImage: 'c:/Users/hp/Desktop/gallery/oud 6.jpg',
+        gallery: [
+          'c:/Users/hp/Desktop/gallery/oud 1.jpg',
+          'c:/Users/hp/Desktop/gallery/oud 2.jpg',
+          'c:/Users/hp/Desktop/gallery/oud 3.jpg',
+          'c:/Users/hp/Desktop/gallery/oud 4.jpg',
+          'c:/Users/hp/Desktop/gallery/oud 5.jpg',
+          'c:/Users/hp/Desktop/gallery/oud 7.jpg'
+        ]
+      }
+    };
+
+    function showProduct(productId) {
+      const product = products[productId];
+      if (!product) return;
+
+      // Hide gallery and show product view
+      document.getElementById('galleryView').style.display = 'none';
+      document.getElementById('productView').style.display = 'block';
+      document.getElementById('backBtn').style.display = 'block';
+
+      // Update product details
+      document.getElementById('productTitle').textContent = product.title;
+      document.getElementById('productPrice').textContent = product.price;
+      document.getElementById('mainProductImage').src = product.mainImage;
+
+      // Populate gallery
+      const galleryContainer = document.getElementById('productGallery');
+      galleryContainer.innerHTML = '';
+
+      product.gallery.forEach(imagePath => {
+        const img = document.createElement('img');
+        img.src = imagePath;
+        img.alt = product.title;
+        img.className = 'gallery-image';
+        img.onclick = () => openImageModal(imagePath);
+        galleryContainer.appendChild(img);
+      });
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    function showGallery() {
+      document.getElementById('galleryView').style.display = 'block';
+      document.getElementById('productView').style.display = 'none';
+      document.getElementById('backBtn').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    function openImageModal(imageSrc) {
+      document.getElementById('modalImage').src = imageSrc;
+      new bootstrap.Modal(document.getElementById('imageModal')).show();
+    }
+
+    // Handle browser back button
+    window.addEventListener('popstate', function(e) {
+      showGallery();
+    });
+  </script>
+</body>
+</html>
